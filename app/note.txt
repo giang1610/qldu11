@@ -1,0 +1,36 @@
+PSR - 4
+th3: Liên quan đến database
+-Tên bảng : + Danh từ
+            + Số Nhiều
+            vd: sau tên bảng phải có s , es (tiếng viêt: san_phams)
+
+-Mối quan hệ : 1-1
+               1-n
+               n-n(ko đc tồn tại vì vi phạm quy tắc 3NF của csdl)
+-Tên bảng trung gian = tên 2 bảng chính ghép lại vs nhau
+
+*VỚI MIGRATIONS :
+ - Lệnh:
+ *yêu cầu:
+  + php artisan make: migration create_tenbang_table
+    ---yêu cầu-----  -tạo migration--    --tên bảng(số Nhiều)--
+    sau khi điền hết các trường dữ liệu cần ms chạy lệnh thực thi
+
+    php artisan migrate:rollback
+    php artisan migrate:rollback --batch= : xoá đến id muốn xoá
+    php artisan migrate:rollback -- step =: xoá đi số bản ghi mới nhất (vd --step = 4 (xoá đi 4 bản ghi mới nhất))
+    php artisan make:migration change_products_table --table=products : sửa bảng (thêm) -> sẽ ra bảng mới 
+    
+
+    php artisan make:migration add_foreign_key_to_nameTable --table=nameTable thêm khóa ngoại
+
+ *thực thi
+  + php artisan migrate
+
+  -> Đối vs laravel mặc định khoá chính sẽ là ID
+  php artisan make:seeder tên bảng Seeder // tạo file seeder
+  php artisan db:seed --class=tên file // thực thi
+
+
+php artisan make:model Category tao model
+php artisan make:controller CategoryController -r tao controller
