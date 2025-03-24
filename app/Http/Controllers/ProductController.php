@@ -59,7 +59,7 @@ class ProductController extends Controller
         $imagePath = null;
     }
 
-    // Chèn dữ liệu vào database
+    // Thêm dữ liệu vào bảng products
         DB::table('products')->insert([
             'name'        => $request->name,
             'price'       => $request->price,
@@ -70,6 +70,8 @@ class ProductController extends Controller
             'status'      => (bool) $request->status,
            
         ]);
+    
+
     
         return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công');
     }
