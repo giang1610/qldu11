@@ -54,7 +54,7 @@
                     <td>{{$c->status ? "hành động" : "tạm dừng"}}</td>
                     
                     <td>
-                        <a href="{{route('products.edit', $c->id)}}" class="btn btn-warning btn-sm">sua</a>
+                        <a href="{{route('products.edit', $c->id)}}" class="btn btn-warning btn-sm">sửa</a>
                         <a href="{{route('products.show', $c->id)}}" class="btn btn-info btn-sm">chi tiết</a>
                         <form action="{{route('products.destroy', $c->id)}}" method="POST" class="d-inline">
                             @csrf

@@ -29,9 +29,9 @@
                 <div class="mb-3">
                     <label for="form-label">Trang thái</label>
                     <select name="status" class="form-label">
-                        <option value="1">{{$category->status == 1 ? 'selected' : ''}} Hoạt động</option>
-                        <option value="0">{{$category->status == 0 ? 'selected' : ''}} tạm dừng</option>
-                    </select>
+                        <option value="1" {{ $category->status == 1 ? 'selected' : '' }}>Hoạt động</option>
+                        <option value="0" {{ $category->status == 0 ? 'selected' : '' }}>Tạm dừng</option>
+                    </select>                    
                     @error('name')
                         <div class="text-danger">{{$message}}</div>
                     @enderror

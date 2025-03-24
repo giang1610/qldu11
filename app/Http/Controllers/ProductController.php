@@ -38,11 +38,14 @@ class ProductController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        $categories = DB::table('categories')->get();
-        // var_dump($categories);
-         return view('products.create', compact('categories'));
-    }
+{
+    $categories = DB::table('categories')
+                    ->where('status', 1) // Chỉ lấy những danh mục có status = 1
+                    ->get();
+
+    return view('products.create', compact('categories'));
+}
+
 
     /**
      * Store a newly created resource in storage.
