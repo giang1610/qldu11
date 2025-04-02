@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @if (session('success'))
     <div class="alert alert-success">
         {{session('success')}}
@@ -43,13 +43,16 @@
                     <td>{{$c->price}}</td>
                     <td>{{$c->quantity}}</td>
                     <td>
-                        {{-- <img src="{{ asset('storage/products/' . $c->image) }}" alt="Hình ảnh" width="100"> --}}
-                        {{-- {{ dd($c->image) }} --}}
-                        <img src="{{ asset('storage/' . $c->image) }}" alt="Hình ảnh" width="100">
-
+                        
+                        {{-- <img src="{{ asset('storage/' . $c->image) }}" alt="Hình ảnh" width="100"> --}}
+                        @if($c->image)
+                        <img src="{{asset('storage/'. $c->image)}}" alt="{{$c->image}}" width="100" height="100">
+                        @else
+                        <span class="text-muted">Không có ảnh</span>
+                        @endif
                     </td>
                     
-                    <td>{{$c->category_name}}</td>
+                    <td>{{$c->category->name ?? "no file"}}</td>
                     <td>{{$c->description}}</td>
                     <td>{{$c->status ? "hành động" : "tạm dừng"}}</td>
                     

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
+use App\Models;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,14 +18,23 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $query = DB::table('categories')->orderBy('id','desc');
+        // dạng query builder
+        // $query = DB::table('categories')->orderBy('id','desc');
 
+        // if($request->has('search')){
+        //     $query->where('name','like','%' . $request->search .'%');
+        // }
+
+        // $categories = $query->paginate(5);
+        // return view('categories.index', compact('categories'));
+
+        //dạng Eloquent
+        $query = Category::query();
         if($request->has('search')){
             $query->where('name','like','%' . $request->search .'%');
         }
-
-        $categories = $query->paginate(5);
-        return view('categories.index', compact('categories'));
+        $categories = $query->orderBy('id','desc')->paginate(5);
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -39,11 +50,13 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        DB::table('categories')->insert([
-            'name'=>$request->name,
-            'status'=>(bool) $request->status,
-        ]);
-        return redirect()->route('categories.index')->with('success','thêm danh mục thành công');
+        // Category::query('categories')->insert([
+        //     'name'=>$request->name,
+        //     'status'=>(bool) $request->status,
+        // ]);
+        // return redirect()->route('categories.index')->with('success','thêm danh mục thành công');
+        Category::create($request->validated());
+        return redirect()->route('categories.index')->with('success', 'Thêm danh mục thành công');
     }
 
     /**
@@ -51,7 +64,7 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        $category = DB::table('categories')->where('id',$id)->first();
+        $category =  Category::query('categories')->where('id',$id)->first();
        //trả dữ liệu về view
        return view('categories.show', compact('category'));
     }
@@ -59,42 +72,53 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
         //lấy dữ liệu của bản ghi cần chỉnh sửa
-       $category = DB::table('categories')->where('id',$id)->first();
-       //trả dữ liệu về view
-       return view('categories.edit', compact('category'));
+    //    $category =  Category::query('categories')->where('id',$id)->first();
+    //    //trả dữ liệu về view
+    //    return view('categories.edit', compact('category'));
+
+
+    return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, string $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        DB::table('categories')->where('id',$id)->update([
-            'name'=>$request->name,
-             'status'=>(bool) $request->status
-        ]);
-        return redirect()->route('categories.index')->with('success','chỉnh sửa thành công');
+        // Category::where('id', $id)->update([
+        //     'name' => $request->name,
+        //     'status' => (bool) $request->status
+        // ]);
+    
+        // return redirect()->route('categories.index')->with('success', 'Chỉnh sửa thành công');
+
+        $category->update($request->validated());
+        return redirect()->route('categories.index')->with('success', 'sửa ok');
     }
+    
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
 {
     // Kiểm tra xem danh mục có sản phẩm nào không
-    $productCount = DB::table('products')->where('category_id', $id)->count();
+    // $productCount = Category::find($id)->products()->count();
 
-    if ($productCount > 0) {
-        // Nếu có sản phẩm, không cho phép xóa và hiển thị thông báo
-        return redirect()->route('categories.index')->with('error', 'Danh mục này đang chứa sản phẩm, không thể xóa!');
-    }
 
-    // Nếu danh mục không chứa sản phẩm, tiến hành xóa
-    DB::table('categories')->where('id', $id)->delete();
+    // if ($productCount > 0) {
+    //     // Nếu có sản phẩm, không cho phép xóa và hiển thị thông báo
+    //     return redirect()->route('categories.index')->with('error', 'Danh mục này đang chứa sản phẩm, không thể xóa!');
+    // }
 
+    // // Nếu danh mục không chứa sản phẩm, tiến hành xóa
+    // Category::query('categories')->where('id', $id)->delete();
+
+    // return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công!');
+    $category->delete();
     return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công!');
 }
 

@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $filllable = [
+    protected $table = 'products';
+    // trường hợp nếu để mặc định có trường timestamps
+    //thì sd hàm sau để tắt timestamps (create_at , update_at)
+    public $timestamps = false;
+    protected $fillable = [
         'name',
         'price',
         'quantity',
@@ -15,4 +19,9 @@ class Product extends Model
         'description',
         'status',
     ];
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+
 }

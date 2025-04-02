@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.client')
 @if (session('success'))
     <div class="alert alert-success">
         {{session('success')}}
@@ -16,7 +16,7 @@
             <h4>sửa sản phẩm</h4>
         </div>
         <div class="card-body">
-            <form action="{{route('products.update', $product->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="mb-3">
@@ -37,7 +37,7 @@
                     
                 </div>
                 <div class="mb-3">
-                    <label for="form-label">ảnh sản phẩm cũ: </label> 
+                    <label for="form-label">ảnh sản phẩm : </label> 
                     <img src="{{ asset('storage/' . $product->image) }}" alt="Hình ảnh" width="100">
                    
                     

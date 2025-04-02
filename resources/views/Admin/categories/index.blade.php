@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin.layouts.app')
 @if (session('success'))
     <div class="alert alert-success">
         {{session('success')}}
@@ -9,7 +9,7 @@
         {{session('error')}}
     </div>
 @endif
-@section('title','Danh sach san pham')
+@section('title','Danh sach ')
 @section('content')
     <div class="container">
         <h2>Danh muc</h2>

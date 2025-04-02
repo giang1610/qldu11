@@ -34,3 +34,6 @@ th3: Liên quan đến database
 
 php artisan make:model Category tao model
 php artisan make:controller CategoryController -r tao controller
+
+
+php artisan make:middleware ClientMiddleware
