@@ -37,3 +37,6 @@ php artisan make:controller CategoryController -r tao controller
 
 
 php artisan make:middleware ClientMiddleware
+
+
+php artisan make:controller Api/CategoryController --api

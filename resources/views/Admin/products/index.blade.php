@@ -30,8 +30,8 @@
                 <th>SO LUONG</th>
                 <th>ANH</th>
                 <th>DANH MỤC</th>
-                <th>TRANG THAI</th>
                 <th>MO TA</th>
+                <th>TRANG THAI</th>
                 <th>HANH DONG</th>
             </tr>
         </thead>

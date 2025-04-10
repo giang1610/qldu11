@@ -46,12 +46,9 @@
                     <label class="form-label">Danh mục: </label>
                     
                         
-                        {{-- @foreach($categories as $category)
-                            <option value="{{ $category->id }}"
-                                @if ($category->id == $product->category_id) selected  @endif>{{ $category->name }}</option>
-                        @endforeach --}}
+                      
                         <td>{{$category->name ?? "no file"}}</td>
-                    {{-- {{$product->category_name}} --}}
+                   
                 </div>
                 <div class="mb-3">
                     <label for="form-label">mô tả sản phẩm:</label>

@@ -42,7 +42,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class CategoryController extends Controller
     {
         $category =  Category::query('categories')->where('id',$id)->first();
        //trả dữ liệu về view
-       return view('categories.show', compact('category'));
+       return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -80,7 +80,7 @@ class CategoryController extends Controller
     //    return view('categories.edit', compact('category'));
 
 
-    return view('categories.edit', compact('category'));
+    return view('admin.categories.edit', compact('category'));
     }
 
     /**

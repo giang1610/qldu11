@@ -14,6 +14,16 @@
         <div class="d-flex justify-content-beetween mb-3">
             <a href="{{route('products.index')}}" class="btn btn-light">QUANR LY SAN PHAM</a>
             <a href="{{route('categories.index')}}" class="btn btn-info">QUANR LY DANH MUC</a>
+            <a href="{{route('admin.tickets.index2')}}" class="btn btn-success">QUANR LY VE</a>
+            @if (Auth::check())
+        <div class="col text-end">
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-danger">Đăng xuất</button>
+            </form>
+        </div>
+    @endif
+
         </div>
     </div>
     @yield('content')

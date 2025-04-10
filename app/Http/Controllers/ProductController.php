@@ -98,7 +98,7 @@ class ProductController extends Controller
     Product::create($data);
    
 
-     return redirect()->route('admin.products.index')->with('success', 'Thêm sản phẩm thành công');
+     return redirect()->route('products.index')->with('success', 'Thêm sản phẩm thành công');
 
     }
 
@@ -114,8 +114,9 @@ class ProductController extends Controller
         // ->select('products.*', 'categories.name as category_name') // Lấy tên danh mục
         // ->where('products.id', $id)
         // ->first();
+        $category = $product->category;
         
-        return view('admin.products.show', compact('product'));
+        return view('admin.products.show', compact('product', 'category'));
     }
 
     /**
@@ -170,7 +171,7 @@ class ProductController extends Controller
         }
 
         $product->update($data);
-        return redirect()->route('admin.products.index')->with('success','chỉnh sửa thành công');
+        return redirect()->route('products.index')->with('success','chỉnh sửa thành công');
     }
 
     /**
@@ -181,6 +182,6 @@ class ProductController extends Controller
         // DB::table('products')->where('id',$id)->delete();
         // return redirect()->route('products.index')->with('success','xóa thành công');
         $product->delete();
-        return redirect()->route('admin.products.index')->with('success','xóa thành công');
+        return redirect()->route('products.index')->with('success','xóa thành công');
     }
 }
