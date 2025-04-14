@@ -23,13 +23,16 @@
         <p class="lead">Bạn có thể mua hàng tại đây</p>
     </div>
     @if (Auth::check())
-        <div class="col text-end">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-danger">Đăng xuất</button>
-            </form>
-        </div>
-    @endif
+    {{-- Đã đăng nhập --}}
+    <span class="me-2">Xin chào, {{ Auth::user()->name }}</span>
+    <form action="{{ route('logout') }}" method="POST" style="display:inline">
+        @csrf
+        <button type="submit" class="btn btn-danger btn-sm">Đăng xuất</button>
+    </form>
+@else
+    {{-- Chưa đăng nhập --}}
+    <a href="{{ route('login') }}" class="btn btn-primary btn-sm">Đăng nhập</a>
+@endif
     <a href="{{route('client.listve')}}" class="btn btn-info">Danh sách vé đặt</a>
     <form method="GET" class="mb-3 d-flex justify-content-between">
         <div class="d-flex">
@@ -56,9 +59,13 @@
         <div class="col-md-3">
             <h4 class="mb-3">Danh mục</h4>
             <ul class="list-group">
+                <li class="list-group-item">
+                <a href="{{ route('client.list') }}" class="text-decoration-none">Tất cả sản phẩm</a>
+            </li>
                 @foreach($categories as $category)
                     <li class="list-group-item">
-                        <a href="" class="text-decoration-none">
+                        
+                        <a href="{{ route('client.category', $category->id) }}" class="text-decoration-none">
                             {{ $category->name }}
                         </a>
                     </li>
@@ -89,6 +96,6 @@
         </div> 
     </div>
 </body>
-
+{{$products->links()}}
 </html>
 @endsection

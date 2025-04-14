@@ -19,7 +19,7 @@ class AuthController extends Controller
             if ($user->role === 'admin') {
                 return redirect('/categories')->with('success', 'Đăng nhập thành công');
             } else {
-                return redirect('/list')->with('success', 'Đăng nhập không thành công');
+                return redirect('/list')->with('success', 'Đăng nhập thành công');
             }
         }
         return back()->withInput()->withErrors([

@@ -6,6 +6,7 @@ use App\Models\DatVeDuLich;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\DatVeDuLichRequest;
+use Illuminate\Support\Facades\Auth;
 
 class DatVeDuLichController extends Controller
 {
@@ -107,6 +108,10 @@ class DatVeDuLichController extends Controller
 
     public function index(Request $request)
     {
+        // Kiểm tra xem người dùng đã đăng nhập hay chưa
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để xem danh sách vé');
+        }
         $datVeDuLich = DatVeDuLich::all();
         return view('client.listve', compact('datVeDuLich'));
     }
