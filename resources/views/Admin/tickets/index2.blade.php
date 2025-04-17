@@ -24,7 +24,7 @@
                 <th>Tổng tiền</th>
                 <th>Hình thức thanh toán</th>
                 <th>Trạng thái</th>
-                <th>Hủy chuyến</th>
+                <th>Đổi trạng thái</th>
 
             </tr>
         </thead>
@@ -41,7 +41,8 @@
                         {{ $ticket->trang_thai == 1 ? 'Đã xác nhận' : 'Chưa xác nhận' }}
                     </td>
                     <td>
-                        <a href="" class="btn btn-danger">sửa</a>
+                        <a href="{{ route('admin.tickets.edit', $ticket->id) }}" class="btn btn-danger">sửa</a>
+
                     </td>
                 </tr>
             @endforeach

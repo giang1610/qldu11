@@ -160,4 +160,18 @@ class DatVeDuLichController extends Controller
             return redirect()->route('client.list')->with('error', 'Thanh toán thất bại hoặc bị hủy!');
         }
     }
+    
+    public function edit($id)
+    {
+        $ve = DatVeDuLich::findOrFail($id);
+        return view('admin.tickets.edit', compact('ve'));
+    }
+    public function update(Request $request, $id)
+    {
+        $ve = DatVeDuLich::findOrFail($id);
+        $ve->trang_thai = $request->trang_thai;
+        $ve->save();
+
+        return redirect()->route('admin.tickets.index2')->with('success', 'Cập nhật trạng thái vé thành công.');
+    }
 }
