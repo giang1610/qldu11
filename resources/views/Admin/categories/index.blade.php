@@ -1,55 +1,55 @@
 @extends('admin.layouts.app')
 @if (session('success'))
-    <div class="alert alert-success">
+    <div class="mb-0 alert alert-success">
         {{session('success')}}
     </div>
 @endif
 @if (session('error'))
-    <div class="alert alert-success">
+    <div class="mb-0 alert alert-success">
         {{session('error')}}
     </div>
 @endif
-@section('title','Danh sach ')
 @section('content')
     <div class="container">
-        <h2>Danh muc</h2>
-        <a href="{{route('categories.create')}}" class="btn btn-primary">Them</a>
-        <form method="GET" class="mb-3">
+        <h2>Danh mục</h2>
+        <a href="{{route('categories.create')}}" class="btn btn-primary">Thêm danh mục</a>
+        <form method="GET" class="mb-3 mt-2">
             <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="tìm kiếm" value="{{request('search')}}" >
-                <button type="submit" class="btn btn-primary">tìm</button>
+                <input type="text" name="search" class="form-control" placeholder="tìm kiếm" value="{{request('search')}}">
+                <button type="submit" class="btn btn-primary">Tìm</button>
             </div>
         </form>
-    
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>TEN</th>
-                <th>TRANG THAI</th>
-                <th>HANH DONG</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($categories as $c)
+
+        <table class="table table-bordered table-striped">
+            <thead>
                 <tr>
-                    <td>{{$c->id}}</td>
-                    <td>{{$c->name}}</td>
-                    <td>{{$c->status ? "hành động" : "tạm dừng"}}</td>
-                    
-                    <td>
-                        <a href="{{route('categories.edit', $c->id)}}" class="btn btn-warning">sua</a>
-                        <a href="{{route('categories.show', $c->id)}}" class="btn btn-info">chi tiết</a>
-                        <form action="{{route('categories.destroy', $c->id)}}" method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('chắc k')">xóa</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>Tên</th>
+                    <th>Trạng thái</th>
+                    <th>Hành động</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
-    {{$categories->links()}}
-</div>
+            </thead>
+            <tbody>
+                @foreach ($categories as $c)
+                    <tr>
+                        <td>{{$c->id}}</td>
+                        <td>{{$c->name}}</td>
+                        <td>{{$c->status ? "hành động" : "tạm dừng"}}</td>
+
+                        <td>
+                            <a href="{{route('categories.edit', $c->id)}}" class="btn btn-warning">Sửa</a>
+                            <a href="{{route('categories.show', $c->id)}}" class="btn btn-info">Chi tiết</a>
+                            <form action="{{route('categories.destroy', $c->id)}}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger"
+                                    onclick="return confirm('Bạn có chắc muốn xóa không?')">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+        {{$categories->links()}}
+    </div>
 @endsection

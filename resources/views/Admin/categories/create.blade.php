@@ -1,15 +1,15 @@
 @extends('admin.layouts.app')
 @if (session('success'))
-    <div class="alert alert-success">
+    <div class="mb-0 alert alert-success">
         {{session('success')}}
     </div>
 @endif
 @if (session('error'))
-    <div class="alert alert-success">
+    <div class="mb-0 alert alert-success">
         {{session('error')}}
     </div>
 @endif
-@section('title','thêm danh mục')
+@section('title', 'thêm danh mục')
 @section('content')
     <div class="card">
         <div class="card-header">
@@ -22,7 +22,7 @@
                     <label for="form-label">Tên danh mục</label>
                     <input type="text" name="name" class="form-control">
                     @error('name')
-                    <div class="text-danger">{{$message}}</div>
+                        <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
                 <div class="mb-3">

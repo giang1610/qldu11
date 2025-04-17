@@ -1,5 +1,5 @@
 @if (session('error'))
-    <div class="alert alert-danger">{{ session('error') }}</div>
+    <div class="mb-0 alert alert-danger">{{ session('error') }}</div>
 @endif
 
 <!DOCTYPE html>
@@ -19,15 +19,6 @@
         <p class="lead">Bạn phải đăng nhập thì mới mua được hàng</p>
         <a href="/login" class="btn btn-primary">Đăng nhập</a>
     </div>
-    @if (Auth::check())
-        <div class="col text-end">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-danger">Đăng xuất</button>
-            </form>
-        </div>
-    @endif
-
 </body>
 
 </html>
