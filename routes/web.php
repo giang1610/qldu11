@@ -39,12 +39,16 @@ Route::post('/dat-ve/{product}', [DatVeDuLichController::class, 'store'])->name(
 Route::post('/huy-ve/{id}', [DatVeDuLichController::class, 'destroy'])->name('client.huyve');
 Route::get('/category/{category_id}', [HomeController::class, 'index'])->name('client.category');
 
+
+
 Route::get('/momo/return', [DatVeDuLichController::class, 'handleMomoReturn'])->name('momo.return');
 
 Route::middleware('admin')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::get('/admin/tickets', [DatVeDuLichController::class, 'index2'])->name('admin.tickets.index2');
+    Route::get('/edit/{id}', [DatVeDuLichController::class, 'edit'])->name('admin.tickets.edit');
+    Route::put('/update/{id}', [DatVeDuLichController::class, 'update'])->name('admin.tickets.update');
 
 });
 
