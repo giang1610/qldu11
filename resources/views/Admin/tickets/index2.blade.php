@@ -25,7 +25,6 @@
                     <th>Hình thức thanh toán</th>
                     <th>Trạng thái</th>
                     <th>Hủy chuyến</th>
-
                 </tr>
             </thead>
             <tbody>

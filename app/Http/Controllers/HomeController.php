@@ -8,6 +8,9 @@ use App\Models\Product;
 use App\Models\DatVeDuLich;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\DatVeDuLichRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -38,8 +41,10 @@ class HomeController extends Controller
             }
         }
 
-        // Thực hiện truy vấn và lấy các sản phẩm đã lọc
-        $products = $query->orderBy('id', 'DESC')->get();
+
+    // Thực hiện truy vấn và lấy các sản phẩm đã lọc
+    $products = $query->orderBy('id', 'DESC')->paginate(6);
+
 
         // Lấy tất cả danh mục có trạng thái 1 (Hoạt động)
         $categories = Category::where('status', 'active')->orderBy('id', 'DESC')->get();
@@ -97,7 +102,9 @@ class HomeController extends Controller
     public function form(Product $product)
     {
 
-
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để xem danh sách vé');
+        }
         return view('client.dat', compact('product'));
     }
 

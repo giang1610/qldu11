@@ -6,6 +6,7 @@ use App\Models\DatVeDuLich;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\DatVeDuLichRequest;
+use Illuminate\Support\Facades\Auth;
 
 class DatVeDuLichController extends Controller
 {
@@ -107,6 +108,10 @@ class DatVeDuLichController extends Controller
 
     public function index(Request $request)
     {
+        // Kiểm tra xem người dùng đã đăng nhập hay chưa
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Vui lòng đăng nhập để xem danh sách vé');
+        }
         $datVeDuLich = DatVeDuLich::all();
         return view('client.listve', compact('datVeDuLich'));
     }
@@ -154,5 +159,19 @@ class DatVeDuLichController extends Controller
         } else {
             return redirect()->route('client.list')->with('error', 'Thanh toán thất bại hoặc bị hủy!');
         }
+    }
+    
+    public function edit($id)
+    {
+        $ve = DatVeDuLich::findOrFail($id);
+        return view('admin.tickets.edit', compact('ve'));
+    }
+    public function update(Request $request, $id)
+    {
+        $ve = DatVeDuLich::findOrFail($id);
+        $ve->trang_thai = $request->trang_thai;
+        $ve->save();
+
+        return redirect()->route('admin.tickets.index2')->with('success', 'Cập nhật trạng thái vé thành công.');
     }
 }

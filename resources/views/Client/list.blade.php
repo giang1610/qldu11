@@ -51,9 +51,13 @@
         <div class="col-md-3">
             <h4 class="mb-3">Danh mục</h4>
             <ul class="list-group">
+                <li class="list-group-item">
+                <a href="{{ route('client.list') }}" class="text-decoration-none">Tất cả sản phẩm</a>
+            </li>
                 @foreach($categories as $category)
                     <li class="list-group-item">
-                        <a href="" class="text-decoration-none">
+                        
+                        <a href="{{ route('client.category', $category->id) }}" class="text-decoration-none">
                             {{ $category->name }}
                         </a>
                     </li>
@@ -107,7 +111,7 @@
                     </div>
                 @endforelse
             </div>
-
-        </div>
+        </div> 
     </div>
+{{$products->links()}}
 @endsection

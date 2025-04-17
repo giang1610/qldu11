@@ -25,12 +25,12 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:1',
-            'category_id' => 'required|exists:categories,id',
-            'description' => 'nullable|string',
-            'status' => 'required|boolean',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'price' => 'required|numeric|min:0',
+        'quantity' => 'required|integer|min:1',
+        'category_id' => 'required|exists:categories,id',
+        'description' => 'required|string|min:10|max:1000',  // Mô tả bắt buộc với độ dài tối thiểu 10 ký tự
+        'status' => 'required|boolean',
+        'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',  // Ảnh là bắt buộc
         ];
     }
 
