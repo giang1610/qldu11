@@ -49,15 +49,13 @@ class ProductController extends Controller
      */
     public function create()
 {
-    // $categories = DB::table('categories')
-    //                 ->where('status', 1) // Chỉ lấy những danh mục có status = 1
-    //                 ->get();
-
-    // return view('products.create', compact('categories'));
-
-    $categories = Category::all();
+    // Lấy danh sách các danh mục có trạng thái hoạt động (status = 1)
+    $categories = Category::where('status', 1)->get();
+    
+    // Trả về view và truyền danh sách các danh mục đã lọc
     return view('admin.products.create', compact('categories'));
 }
+
 
 
     /**

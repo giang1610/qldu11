@@ -105,21 +105,19 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
 {
-    // Kiểm tra xem danh mục có sản phẩm nào không
-    // $productCount = Category::find($id)->products()->count();
+    // Đếm số lượng sản phẩm thuộc danh mục
+    $productCount = $category->products()->count();
 
+    if ($productCount > 0) {
+        // Nếu có sản phẩm, không cho phép xóa và thông báo lỗi
+        return redirect()->route('categories.index')->with('error', 'Danh mục này đang chứa sản phẩm, không thể xóa!');
+    }
 
-    // if ($productCount > 0) {
-    //     // Nếu có sản phẩm, không cho phép xóa và hiển thị thông báo
-    //     return redirect()->route('categories.index')->with('error', 'Danh mục này đang chứa sản phẩm, không thể xóa!');
-    // }
-
-    // // Nếu danh mục không chứa sản phẩm, tiến hành xóa
-    // Category::query('categories')->where('id', $id)->delete();
-
-    // return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công!');
+    // Nếu không có sản phẩm thì cho phép xóa
     $category->delete();
+
     return redirect()->route('categories.index')->with('success', 'Xóa danh mục thành công!');
 }
+
 
 }

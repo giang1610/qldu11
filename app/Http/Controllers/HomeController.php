@@ -17,11 +17,15 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, $category_id = null)
     {
         // Bắt đầu truy vấn với sản phẩm có trạng thái 1 (Hoạt động)
         $query = Product::with('category')->where('status', 1);
-
+       
+    // Lọc theo danh mục
+    if ($category_id) {
+        $query->where('category_id', $category_id);
+    }
         // Nếu có từ khóa tìm kiếm, thêm điều kiện tìm kiếm vào truy vấn
         if ($request->has('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
@@ -47,7 +51,7 @@ class HomeController extends Controller
 
 
         // Lấy tất cả danh mục có trạng thái 1 (Hoạt động)
-        $categories = Category::where('status', 'active')->orderBy('id', 'DESC')->get();
+        $categories = Category::where('status', '1')->orderBy('id', 'DESC')->get();
 
 
         return view('client.list', compact('categories', 'products'));

@@ -52,12 +52,12 @@
             <h4 class="mb-3">Danh mục</h4>
             <ul class="list-group">
                 <li class="list-group-item">
-                <a href="{{ route('client.list') }}" class="text-decoration-none">Tất cả sản phẩm</a>
+                <a href="{{ route('client.list') }}" class="text-decoration-none" style="color: #333;">Tất cả chuyến đi</a>
             </li>
                 @foreach($categories as $category)
                     <li class="list-group-item">
                         
-                        <a href="{{ route('client.category', $category->id) }}" class="text-decoration-none">
+                        <a href="{{ route('client.category', $category->id) }}" class="text-decoration-none" style="color: #333;">
                             {{ $category->name }}
                         </a>
                     </li>
@@ -65,9 +65,9 @@
             </ul>
             <form method="GET" class="mb-3 mt-3">
                 <div class="input-group">
-                    <input type="text" name="search" class="form-control form-control-sm" placeholder="Tìm kiếm"
+                    <input type="text" name="search" class="form-control form-control-sm" placeholder="Tìm kiếm chuyến đi"
                         value="{{ request('search') }}">
-                    <button type="submit" class="btn btn-primary btn-sm">Tìm</button>
+                    <button type="submit" class="btn btn-primary btn-sm">🔍</button>
                 </div>
             </form>
 
@@ -94,20 +94,21 @@
                 @forelse($products as $product)
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card h-100 shadow-sm border-0">
+                            <a href="{{ route('client.show', $product->id) }}">
                             <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top rounded-top"
-                                alt="{{ $product->name }}" style="height: 200px; object-fit: cover;">
+                                alt="{{ $product->name }}" style="height: 200px; object-fit: cover;"></a>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title text-truncate">{{ $product->name }}</h5>
                                 <p class="card-text fw-bold text-danger mb-1">{{ number_format($product->price) }} VND</p>
-                                <p class="text-muted small mb-3">Số lượng: {{ $product->quantity }}</p>
-                                <a href="{{ route('client.show', $product->id) }}" class="btn btn-outline-primary mt-auto">Xem
-                                    chi tiết</a>
+                                {{-- <p class="text-muted small mb-3">Số lượng: {{ $product->quantity }}</p> --}}
+                                <a href="{{ route('client.show', $product->id) }}" class="btn btn-outline-primary mt-auto">
+                                    chi tiết chuyến đi</a>
                             </div>
                         </div>
                     </div>
                 @empty
                     <div class="col-12">
-                        <p class="text-center text-muted">Không có sản phẩm nào.</p>
+                        <p class="text-center text-muted">Không có chuyến đi.</p>
                     </div>
                 @endforelse
             </div>

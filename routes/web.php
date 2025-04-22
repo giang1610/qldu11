@@ -25,6 +25,12 @@ Route::post('/logout', function () {
 })->name('logout');
 
 
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+
 Route::middleware('client')->group(function () {
   
  
@@ -38,12 +44,13 @@ Route::get('/product/{product}', [HomeController::class, 'show'])->name('client.
 Route::post('/dat-ve/{product}', [DatVeDuLichController::class, 'store'])->name('client.dat.store');
 Route::post('/huy-ve/{id}', [DatVeDuLichController::class, 'destroy'])->name('client.huyve');
 Route::get('/category/{category_id}', [HomeController::class, 'index'])->name('client.category');
+Route::get('/category/{category_id}', [HomeController::class, 'index'])->name('client.category');
 
 
 
 Route::get('/momo/return', [DatVeDuLichController::class, 'handleMomoReturn'])->name('momo.return');
 
-Route::middleware('admin')->group(function () {
+Route::middleware('auth','admin')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::get('/admin/tickets', [DatVeDuLichController::class, 'index2'])->name('admin.tickets.index2');
@@ -51,4 +58,8 @@ Route::middleware('admin')->group(function () {
     Route::put('/update/{id}', [DatVeDuLichController::class, 'update'])->name('admin.tickets.update');
 
 });
+Route::resource('/products', ProductController::class)->middleware('auth');
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');

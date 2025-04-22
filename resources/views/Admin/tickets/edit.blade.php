@@ -1,64 +1,73 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<div class="container py-4">
+<div class="container py-5">
+
+    {{-- Hiển thị thông báo --}}
     @if (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
+        <div class="alert alert-danger shadow-sm">{{ session('error') }}</div>
     @endif
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success shadow-sm">{{ session('success') }}</div>
     @endif
 
-    <div class="text-center mb-4">
-        <h2 class="text-primary">Danh sách vé đặt</h2>
-        <a href="/list" class="btn btn-dark btn-sm mt-2">Quay về danh sách chuyến</a>
+    {{-- Tiêu đề --}}
+    <div class="text-center mb-5">
+        <h2 class="text-uppercase fw-bold text-primary">Cập nhật trạng thái vé</h2>
+        <a href="{{ route('admin.tickets.index2', $ve->id) }}" class="btn btn-outline-dark btn-sm mt-3">
+            <i class="bi bi-arrow-left-circle"></i> Quay về danh sách chuyến
+        </a>
     </div>
-   
-    <form action="{{route('admin.tickets.update', $ve->id)}}" method="POST" enctype="multipart/form-data" class="p-4 rounded shadow bg-white" style="max-width: 600px; margin: auto;">
-        @csrf
-        @method('PUT')
-    
-        <h4 class="mb-4 text-center text-primary">Thông tin đặt vé</h4>
-    
-        <div class="mb-3">
-            <label class="form-label fw-bold">Tên người đặt:</label>
-            <p class="form-control-plaintext">{{ $ve->ten_nguoi_dat }}</p>
+
+    {{-- Form chỉnh sửa --}}
+    <div class="card shadow-lg border-0" style="max-width: 650px; margin: auto;">
+        <div class="card-body p-5">
+            <form action="{{ route('admin.tickets.update', $ve->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <div class="mb-4">
+                    <label class="form-label text-muted">Tên người đặt:</label>
+                    <div class="form-control-plaintext fw-bold">{{ $ve->ten_nguoi_dat }}</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-muted">Email:</label>
+                    <div class="form-control-plaintext">{{ $ve->email }}</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-muted">Số lượng đặt:</label>
+                    <div class="form-control-plaintext">{{ $ve->so_luong }}</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-muted">Tổng tiền:</label>
+                    <div class="form-control-plaintext text-success fw-semibold">{{ number_format($ve->tong_tien, 0, ',', '.') }} đ</div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-muted">Hình thức thanh toán:</label>
+                    <div class="form-control-plaintext">{{ ucfirst(str_replace('_', ' ', $ve->hinh_thuc_thanh_toan)) }}</div>
+                </div>
+
+                <div class="mb-5">
+                    <label for="trang_thai" class="form-label text-muted">Trạng thái đặt vé:</label>
+                    <select class="form-select" name="trang_thai" id="trang_thai">
+                        <option value="0" {{ $ve->trang_thai == 0 ? 'selected' : '' }}>Chưa xác nhận</option>
+                        <option value="1" {{ $ve->trang_thai == 1 ? 'selected' : '' }}>Đã xác nhận</option>
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-5">
+                        <i class="bi bi-check-circle"></i> Cập nhật
+                    </button>
+                </div>
+
+            </form>
         </div>
-    
-        <div class="mb-3">
-            <label class="form-label fw-bold">Email:</label>
-            <p class="form-control-plaintext">{{ $ve->email }}</p>
-        </div>
-    
-        <div class="mb-3">
-            <label class="form-label fw-bold">Số lượng đặt:</label>
-            <p class="form-control-plaintext">{{ $ve->so_luong }}</p>
-        </div>
-    
-        <div class="mb-3">
-            <label class="form-label fw-bold">Tổng tiền:</label>
-            <p class="form-control-plaintext text-danger">{{ number_format($ve->tong_tien, 0, ',', '.') }} đ</p>
-        </div>
-    
-        <div class="mb-3">
-            <label class="form-label fw-bold">Hình thức thanh toán:</label>
-            <p class="form-control-plaintext text-secondary">{{ ucfirst(str_replace('_', ' ', $ve->hinh_thuc_thanh_toan)) }}</p>
-        </div>
-    
-        <div class="mb-4">
-            <label for="trang_thai" class="form-label fw-bold">Trạng thái:</label>
-            <select class="form-select" name="trang_thai">
-                <option value="0" {{ $ve->trang_thai == 0 ? 'selected' : '' }}>Chưa xác nhận</option>
-                <option value="1" {{ $ve->trang_thai == 1 ? 'selected' : '' }}>Đã xác nhận</option>
-            </select>
-        </div>
-    
-        <div class="text-center">
-            <button type="submit" class="btn btn-success px-4">Đổi trạng thái</button>
-        </div>
-    </form>
-    
-   
-    
+    </div>
+
 </div>
 @endsection

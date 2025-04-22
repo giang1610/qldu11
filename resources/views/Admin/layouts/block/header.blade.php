@@ -6,7 +6,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link text-light" href="#">Trang chủ</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="/list">Trang chủ</a></li>
                 <li class="nav-item"><a class="nav-link text-light" href="#">Báo cáo</a></li>
                 <li class="nav-item"><a class="nav-link text-light" href="#">Cài đặt</a></li>
                 <form action="{{ route('logout') }}" method="POST">
